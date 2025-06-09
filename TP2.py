@@ -139,6 +139,8 @@ def comprobacion_id_dest(cod_id_destinatario):
     return id_valido
 
 
+
+
 #PUNTO 2 - Falta! debe tomar valores previamente procesador por comprobacion_monedas() que se agregan a un contador y tomar un acumulador de montos de op válidas.
 #Adaptada para funcionar en cada ciclo o al final del procesamiento de todas las órdenes
 #def operaciones_validas(op_validas, monto_op_validas):
