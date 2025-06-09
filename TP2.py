@@ -126,15 +126,17 @@ por letras mayúsculas, dígitos o guiones (pueden ser solo mayúsculas, o solo 
 cualquier combinación de mayúsculas, números y guiones, pero no solo guiones). Si no se cumple
 esta regla, o aparece cualquier caracter de otro tipo en este identificador, implicará que la orden
 de pago es inválida por “Destinatario mal identificado”."""
-#FALTA no está finalizado
+#FALTA no está finalizado, borrador con print(), probar con ejemplos
 def dest_mal_id(cod_id_destinatario):
+    id_valido = True
     for n in range(0, len(cod_id_destinatario)):
         caracteres_permitidos = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-"
        #comprobación de condiciones que se cumplen o encontrar cuando no se cumple??
-        if cod_id_destinatario[n] in caracteres_permitidos:
-            print("id valido")
-        else:
-            print("caracter no permitido en el id!", cod_id_destinatario[n])
+        if cod_id_destinatario[n] in caracteres_permitidos == False:
+            print("id no permitido por caracter invalido: ", cod_id_destinatario[n])
+            id_valido = False
+            break
+    return id_valido
 
 
 
@@ -148,7 +150,7 @@ def dest_mal_id(cod_id_destinatario):
 
 
 
-#Lectura del archivo, estructura basado en Ficha 11, pág. 227 (2025) ADAPTAR
+#Lectura del archivo, estructura basado en Ficha 11, pág. 227 (2025) ADAPTAR. Texto de prueba es ordenes_test1.txt tambien en el repositorio
 archivo = open('ordenes_test1.txt', 'rt')
 
 # leer la primera línea y procesarla por fuera…
