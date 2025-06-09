@@ -1,6 +1,7 @@
 #algoritmos de las tablas!!
 
-#como agregamos la moneda! y los returns!
+#como agregamos la moneda! y los returns!???
+#estan incompletas las funciones
 
 #falta agregar moneda ARS
 def com_1 (monto_nominal):
