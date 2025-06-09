@@ -77,5 +77,38 @@ def cal_imp3 (monto_base):
     return monto_final
 
 
+#Lectura del archivo, estructura basado en Ficha 11, pág. 227 (2025) ADAPTAR
+archivo = open('ordenes_test1.txt', 'rt')
+
+# leer la primera línea y procesarla por fuera…
+line = archivo.readline()
+hour = line[0:5]
+print('Hora de creación del archivo:"', hour)
+
+while True:
+    # intentar leer una línea...
+    line = archivo.readline()
+    # Si se obtuvo una cadena vacía... cortar el ciclo y terminar...
+    if line == '':
+        break
+    # procesar aquí la línea leída...
+    n_destinatario = line[0:19]
+    cod_id_destinatario = line[20:29]
+    cod_or_pago = line[30:39]
+    monto_nominal = int(line[40:49])
+    alg_calc_comision = int(line[50:51])
+    agl_calc_impositivo = int(line[52:53])
+
+    print('n_destinatario:', n_destinatario)
+    print('cod_id_destinatario:', cod_id_destinatario)
+    print('cod_or_pago:', cod_or_pago)
+    print('monto_nominal:', monto_nominal)
+    print('alg_calc_comision:', alg_calc_comision)
+    print('agl_calc_impositivo:', agl_calc_impositivo)
+
+
+# cerrar el archivo antes de terminar...
+archivo.close()
+
 
 
