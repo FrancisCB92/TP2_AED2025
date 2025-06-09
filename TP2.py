@@ -79,25 +79,41 @@ def cal_imp3 (monto_base):
 
 #Funciones de consignas / requerimientos
 
-#Punto 1
+
+
+#PUNTO 1 - monedas del TP1
 """Peso argentino ARS
 Dólar estadounidense USD
 Euro EUR
 Libra esterlina GBP
 Yen JPY"""
+#lista de comprobación
 monedas_validas = [ "ARS", "USD", "EUR", "GBP", "JPY" ]
 
 def operaciones_invalidas(codigo_pago):
-    mon_valida = 0
-    ars = usd = eur = gbp = jpy = False
-    for n in range(0, len(monedas_validas)):
-        print(monedas_validas[n])
-        if monedas_validas[n] in codigo_pago:
-            mon_valida += 1
-        else:
-            return False
+    #es invalida la operacion si no encuentra monedas validas o si estan repetidas
+    op_valida = False
 
-    return mon_valida
+    #bandera para comprobar si hay monedas repetidas
+    mon_encontrada = None
+
+    #comprobación moneda por moneda en la lista monedas_validas
+    for n in range(0, len(monedas_validas)):
+
+        #primer ciclo para comprobar si encuentra una de las monedas
+        if monedas_validas[n] in codigo_pago:
+
+            #primera asignación de la "bandera" (con el valor de la moneda que encuentra en lugar de ser binario: false o true)
+            if mon_encontrada is None:
+                mon_encontrada = monedas_validas[n]
+                print("moneda encontrada:", mon_encontrada)
+                op_valida = True
+
+            #comprobacion de monedas repetidas diferentes
+            elif monedas_validas[n] != mon_encontrada:
+                op_valida = False
+                print("dos monedas diferentes!", monedas_validas[n], mon_encontrada)
+    return op_valida
 
 
 
@@ -131,11 +147,6 @@ while True:
     print('alg_calc_comision:', alg_calc_comision)
     print('agl_calc_impositivo:', agl_calc_impositivo)
 
-
-
-
 # cerrar el archivo antes de terminar...
 archivo.close()
 
-
-print(operaciones_invalidas("ARSJJJ"))
