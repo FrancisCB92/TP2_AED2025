@@ -77,14 +77,38 @@ def cal_imp3 (monto_base):
     monto_final = monto_base - impuesto
     return monto_final
 
+#Funciones de consignas / requerimientos
+
+#Punto 1
+"""Peso argentino ARS
+Dólar estadounidense USD
+Euro EUR
+Libra esterlina GBP
+Yen JPY"""
+monedas_validas = [ "ARS", "USD", "EUR", "GBP", "JPY" ]
+
+def operaciones_invalidas(codigo_pago):
+    mon_valida = 0
+    ars = usd = eur = gbp = jpy = False
+    for n in range(0, len(monedas_validas)):
+        print(monedas_validas[n])
+        if monedas_validas[n] in codigo_pago:
+            mon_valida += 1
+        else:
+            return False
+
+    return mon_valida
+
+
+
+
 
 #Lectura del archivo, estructura basado en Ficha 11, pág. 227 (2025) ADAPTAR
 archivo = open('ordenes_test1.txt', 'rt')
 
 # leer la primera línea y procesarla por fuera…
 line = archivo.readline()
-hour = line[0:5]
-print('Hora de creación del archivo:"', hour)
+print('timestamp: ', line)
 
 while True:
     # intentar leer una línea...
@@ -108,8 +132,10 @@ while True:
     print('agl_calc_impositivo:', agl_calc_impositivo)
 
 
+
+
 # cerrar el archivo antes de terminar...
 archivo.close()
 
 
-
+print(operaciones_invalidas("ARSJJJ"))
