@@ -1,3 +1,9 @@
+#declaración de variables, banderas, contadores
+op_validas = op_invalidas = a_monto_op_val = 0
+
+
+
+
 #algoritmos de las tablas!!
 
 #como agregamos la moneda! y los returns!???
@@ -90,7 +96,7 @@ Yen JPY"""
 #lista de comprobación
 monedas_validas = [ "ARS", "USD", "EUR", "GBP", "JPY" ]
 
-def operaciones_invalidas(codigo_pago):
+def comprobacion_monedas(codigo_pago):
     #es invalida la operacion si no encuentra monedas validas o si estan repetidas
     op_valida = False
 
@@ -102,7 +108,6 @@ def operaciones_invalidas(codigo_pago):
 
         #primer ciclo para comprobar si encuentra una de las monedas
         if monedas_validas[n] in codigo_pago:
-
             #primera asignación de la "bandera" (con el valor de la moneda que encuentra en lugar de ser binario: false o true)
             if mon_encontrada is None:
                 mon_encontrada = monedas_validas[n]
@@ -115,7 +120,31 @@ def operaciones_invalidas(codigo_pago):
                 print("dos monedas diferentes!", monedas_validas[n], mon_encontrada)
     return op_valida
 
+#Parte del punto 1, comprobación de destinatarios mal identificados, luego en la llamada en el ciclo principal hay un contador
+"""El código de identificación del destinatario de la orden de pago, debe componerse únicamente
+por letras mayúsculas, dígitos o guiones (pueden ser solo mayúsculas, o solo números, o
+cualquier combinación de mayúsculas, números y guiones, pero no solo guiones). Si no se cumple
+esta regla, o aparece cualquier caracter de otro tipo en este identificador, implicará que la orden
+de pago es inválida por “Destinatario mal identificado”."""
+#FALTA no está finalizado
+def dest_mal_id(cod_id_destinatario):
+    for n in range(0, len(cod_id_destinatario)):
+        caracteres_permitidos = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-"
+       #comprobación de condiciones que se cumplen o encontrar cuando no se cumple??
+        if cod_id_destinatario[n] in caracteres_permitidos:
+            print("id valido")
+        else:
+            print("caracter no permitido en el id!", cod_id_destinatario[n])
 
+
+
+
+
+
+#PUNTO 2 - Falta! debe tomar valores previamente procesador por comprobacion_monedas() que se agregan a un contador y tomar un acumulador de montos de op válidas.
+#Adaptada para funcionar en cada ciclo o al final del procesamiento de todas las órdenes
+#def operaciones_validas(op_validas, monto_op_validas):
+    #...
 
 
 
@@ -127,18 +156,30 @@ line = archivo.readline()
 print('timestamp: ', line)
 
 while True:
-    # intentar leer una línea...
+    #toma la primera línea - omitir?? ¿Cómo quitarla?, ver salida esperada
     line = archivo.readline()
     # Si se obtuvo una cadena vacía... cortar el ciclo y terminar...
     if line == '':
         break
-    # procesar aquí la línea leída...
+    # toma valores de cada orden de cada línea y asigna a variables
     n_destinatario = line[0:19]
     cod_id_destinatario = line[20:29]
     cod_or_pago = line[30:39]
     monto_nominal = int(line[40:49])
     alg_calc_comision = int(line[50:51])
     agl_calc_impositivo = int(line[52:53])
+
+    #procesamiento de las órdenes / llamada de funciones
+    if comprobacion_monedas(cod_or_pago):
+        op_validas += 1
+        #monto final? Punto 2 suma de montos de operaciones validas
+        a_monto_op_val += monto_nominal
+    else:
+        op_invalidas += 1
+
+
+
+
 
     print('n_destinatario:', n_destinatario)
     print('cod_id_destinatario:', cod_id_destinatario)
@@ -149,4 +190,3 @@ while True:
 
 # cerrar el archivo antes de terminar...
 archivo.close()
-
