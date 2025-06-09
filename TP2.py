@@ -1,5 +1,5 @@
 #declaración de variables, banderas, contadores
-op_validas = op_invalidas = a_monto_op_val = 0
+op_v_moneda = op_inv_moneda = ac_monto_op_val = op_inv_id = op_v_id = 0
 
 
 
@@ -127,7 +127,7 @@ cualquier combinación de mayúsculas, números y guiones, pero no solo guiones)
 esta regla, o aparece cualquier caracter de otro tipo en este identificador, implicará que la orden
 de pago es inválida por “Destinatario mal identificado”."""
 #FALTA no está finalizado, borrador con print(), probar con ejemplos
-def dest_mal_id(cod_id_destinatario):
+def comprobacion_id_dest(cod_id_destinatario):
     id_valido = True
     for n in range(0, len(cod_id_destinatario)):
         caracteres_permitidos = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789-"
@@ -139,18 +139,13 @@ def dest_mal_id(cod_id_destinatario):
     return id_valido
 
 
-
-
-
-
 #PUNTO 2 - Falta! debe tomar valores previamente procesador por comprobacion_monedas() que se agregan a un contador y tomar un acumulador de montos de op válidas.
 #Adaptada para funcionar en cada ciclo o al final del procesamiento de todas las órdenes
 #def operaciones_validas(op_validas, monto_op_validas):
     #...
 
 
-
-#Lectura del archivo, estructura basado en Ficha 11, pág. 227 (2025) ADAPTAR. Texto de prueba es ordenes_test1.txt tambien en el repositorio
+#Lectura del archivo, estructura basado en Ficha 11, pág. 227 (2025). Texto de prueba es ordenes_test1.txt tambien en el repositorio
 archivo = open('ordenes_test1.txt', 'rt')
 
 # leer la primera línea y procesarla por fuera…
@@ -172,15 +167,17 @@ while True:
     agl_calc_impositivo = int(line[52:53])
 
     #procesamiento de las órdenes / llamada de funciones
+    #PUNTO1 r1 operaciones inválidas por tipo de moneda y PUNTO2 cantidad de opreaciones validas y suma total de montos validas, (separar?)
     if comprobacion_monedas(cod_or_pago):
-        op_validas += 1
-        #monto final? Punto 2 suma de montos de operaciones validas
-        a_monto_op_val += monto_nominal
+        op_v_moneda += 1
+        #monto final? Punto 2 suma de montos de operaciones válidas
+        ac_monto_op_val += monto_nominal
     else:
-        op_invalidas += 1
+        op_inv_moneda += 1
 
-
-
+    #PUNTO1 r2- cantidad de operaciones inválidas por id destinatario
+    if not comprobacion_id_dest(cod_id_destinatario):
+        op_inv_id += 1
 
 
     print('n_destinatario:', n_destinatario)
