@@ -38,7 +38,7 @@ def com_3 (monto_nominal):
     monto_base = monto_nominal - (monto_fijo + comision)
     return monto_base
 
-#moneda JPY
+#falta agregar moneda JPY
 def com_4 (monto_nominal):
     comision = 0
     if monto_nominal <= 100000:
@@ -84,9 +84,7 @@ def cal_imp3 (monto_base):
     return monto_final
 
 #Funciones de consignas / requerimientos
-
-
-
+#########################################
 #PUNTO 1 - monedas del TP1
 """Peso argentino ARS
 Dólar estadounidense USD
