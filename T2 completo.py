@@ -1,7 +1,4 @@
 # pendiente: adaptar salidos en variables r1, r2, r3 ...
-#funcion punto 2 que validez de la orden de pago - no verifica que "pero no solo guiones"
-# està lanzando error de linea 191 "monto_nominal = int(line[40:49])"
-# "ValueError: invalid literal for int() with base 10: ''" // posiblemente es por la primera linea de timestamp
 
 
 
@@ -152,8 +149,9 @@ def comprobacion_id_dest(cod_id_destinatario):
     caracteres_permitidos = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789- "
     for n in range(0, len(cod_id_destinatario)):
 
-        if cod_id_destinatario[n] != "-":
-            solo_guion = False
+        if cod_id_destinatario[n] != " ":
+            if cod_id_destinatario != "-":
+                solo_guion = False
 
         if (cod_id_destinatario[n] in caracteres_permitidos) == False:
             print("id no permitido por caracter invalido: ", cod_id_destinatario[n])
@@ -162,7 +160,7 @@ def comprobacion_id_dest(cod_id_destinatario):
     if (solo_guion == False) and (caracter_invalido == False):
         id_valido = True
 
-    print(solo_guion, caracter_invalido)
+    print("b solo guion:", solo_guion, "b caracter invalido:", caracter_invalido)
     return id_valido
 
 
@@ -204,15 +202,17 @@ while True:
         op_inv_moneda += 1
 
     # PUNTO1 r2- cantidad de operaciones inválidas por id destinatario
-    if not comprobacion_id_dest(cod_id_destinatario):
+    if comprobacion_id_dest(cod_id_destinatario) == False:
         op_inv_id += 1
+        print("op invalida")
 
     # PUNTO r3 - cantidad de operaciones validas
-    if comprobacion_id_dest == True:
+    if comprobacion_id_dest(cod_id_destinatario) == True:
+        print("op valida")
         op_v_id += 1
         suma_monts_nom += monto_nominal
-        print("AAAA", suma_monts_nom, op_v_id)
-
+        print("suma monto nominal operaciones validas:", suma_monts_nom, "opraciones validas", op_v_id)
+    print("////////////////////////////////////")
 
 
 
@@ -232,4 +232,4 @@ print("suma total:", suma_monts_nom)
 
 
 # cerrar el archivo antes de terminar...
-archivo.close(suma_monts_nom)
+archivo.close()
